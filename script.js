@@ -1,4 +1,4 @@
-// --- 1. PARTICLE BACKGROUND ---
+// --- 1. PARTICLE NETWORK ---
 const canvas = document.getElementById('particle-canvas');
 if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -7,9 +7,9 @@ if (canvas) {
     let particlesArray = [];
 
     class Particle {
-        constructor(x, y, directionX, directionY, size, color) {
+        constructor(x, y, dirX, dirY, size, color) {
             this.x = x; this.y = y;
-            this.directionX = directionX; this.directionY = directionY;
+            this.directionX = dirX; this.directionY = dirY;
             this.size = size; this.color = color;
         }
         draw() {
@@ -25,7 +25,7 @@ if (canvas) {
         }
     }
 
-    function initParticles() {
+    function init() {
         particlesArray = [];
         let numberOfParticles = (canvas.height * canvas.width) / 15000;
         for (let i = 0; i < numberOfParticles; i++) {
@@ -38,7 +38,7 @@ if (canvas) {
         }
     }
 
-    function connectParticles() {
+    function connect() {
         for (let a = 0; a < particlesArray.length; a++) {
             for (let b = a; b < particlesArray.length; b++) {
                 let distance = ((particlesArray[a].x - particlesArray[b].x) ** 2) + ((particlesArray[a].y - particlesArray[b].y) ** 2);
@@ -55,22 +55,63 @@ if (canvas) {
         }
     }
 
-    function animateParticles() {
-        requestAnimationFrame(animateParticles);
+    function animate() {
+        requestAnimationFrame(animate);
         ctx.clearRect(0, 0, innerWidth, innerHeight);
         particlesArray.forEach(p => p.update());
-        connectParticles();
+        connect();
     }
-
     window.addEventListener('resize', () => {
-        canvas.width = innerWidth; canvas.height = innerHeight;
-        initParticles();
+        canvas.width = innerWidth; canvas.height = innerHeight; init();
     });
-    initParticles();
-    animateParticles();
+    init();
+    animate();
 }
 
-// --- 2. INTERACTIVE BOOK LOGIC ---
+// --- 2. HOME: DRAG SLIDER (WEB ANIMATIONS API) ---
+const track = document.getElementById("image-track");
+
+if (track) {
+    const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
+
+    const handleOnUp = () => {
+        track.dataset.mouseDownAt = "0";  
+        track.dataset.prevPercentage = track.dataset.percentage;
+    }
+
+    const handleOnMove = e => {
+        if(track.dataset.mouseDownAt === "0") return;
+
+        const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
+              maxDelta = window.innerWidth / 2;
+
+        const percentage = (mouseDelta / maxDelta) * -100,
+              nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
+              nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
+
+        track.dataset.percentage = nextPercentage;
+
+        track.animate({
+            transform: `translate(${nextPercentage}%, -50%)`
+        }, { duration: 1200, fill: "forwards" });
+
+        for(const image of track.getElementsByClassName("track-image")) {
+            image.animate({
+                objectPosition: `${100 + nextPercentage}% center`
+            }, { duration: 1200, fill: "forwards" });
+        }
+    }
+
+    /* -- Touch Support -- */
+    window.onmousedown = e => handleOnDown(e);
+    window.ontouchstart = e => handleOnDown(e.touches[0]);
+    window.onmouseup = e => handleOnUp(e);
+    window.ontouchend = e => handleOnUp(e.touches[0]);
+    window.onmousemove = e => handleOnMove(e);
+    window.ontouchmove = e => handleOnMove(e.touches[0]);
+}
+
+// --- 3. ABOUT: FANNING BOOK LOGIC ---
 const book = document.querySelector('.book');
 if (book) {
     const pages = document.querySelectorAll('.page');
@@ -79,54 +120,64 @@ if (book) {
 
     function updateBook(clientX) {
         const rect = book.getBoundingClientRect();
-        // Trigger area is wider than the book to allow easy opening
         const spineX = rect.left;
         const width = rect.width;
         
-        const startX = spineX + (width * 1.5); // Start triggering right of book
-        const endX = spineX - (width * 0.5);   // End triggering left of book
+        // Trigger logic
+        const startX = spineX + (width * 1.5); 
+        const endX = spineX - (width * 0.5);   
         
         let progress = (startX - clientX) / (startX - endX);
         if (progress < 0) progress = 0;
         if (progress > 1) progress = 1;
         
         pages.forEach((page, index) => {
+            // Factor: index 0 (bottom) moves least, top moves most
             const pageFactor = index / (totalPages - 1);
             const currentRotation = progress * maxRotation * pageFactor;
+            
             page.style.transform = `rotateY(${currentRotation}deg)`;
-            page.style.translate = `0 0 ${index}px`; // Prevent Z-fighting
+            page.style.translate = `0 0 ${index}px`; 
+
+            // Text Visibility Logic (Un-mirroring)
+            if (currentRotation < -90) {
+                page.classList.add('open');
+            } else {
+                page.classList.remove('open');
+            }
         });
     }
 
     window.addEventListener('mousemove', (e) => {
         requestAnimationFrame(() => updateBook(e.clientX));
     });
+
+    // Mobile touch support for book
+    window.addEventListener('touchmove', (e) => {
+         requestAnimationFrame(() => updateBook(e.touches[0].clientX));
+    });
     
-    // Initial State (Closed)
+    // Initial closed state
     updateBook(window.innerWidth * 2); 
 }
 
-// --- 3. ACCORDION LOGIC (COURSES) ---
-const accHeaders = document.querySelectorAll('.accordion-header');
-accHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-        const content = header.nextElementSibling;
-        const icon = header.querySelector('span');
+// --- 4. COURSES: ACCORDION LOGIC ---
+const accTriggers = document.querySelectorAll('.accordion-trigger');
+accTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+        const content = trigger.nextElementSibling;
+        const icon = trigger.querySelector('span');
         
         if (content.style.maxHeight) {
             content.style.maxHeight = null;
-            content.classList.remove('active');
             icon.textContent = '+';
         } else {
-            // Optional: Close others
-            document.querySelectorAll('.accordion-content').forEach(c => {
-                c.style.maxHeight = null; 
-                c.classList.remove('active');
-            });
-            document.querySelectorAll('.accordion-header span').forEach(s => s.textContent = '+');
-
+            // Close others (optional, keeps UI clean)
+            document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+            document.querySelectorAll('.accordion-trigger span').forEach(s => s.textContent = '+');
+            
+            // Open clicked
             content.style.maxHeight = content.scrollHeight + "px";
-            content.classList.add('active');
             icon.textContent = '-';
         }
     });
