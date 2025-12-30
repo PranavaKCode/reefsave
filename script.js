@@ -69,15 +69,23 @@ if (canvas) {
 }
 
 // --- 2. HOME: DRAG SLIDER (WEB ANIMATIONS API) ---
+// --- 2. HOME: DRAG SLIDER (WEB ANIMATIONS API) ---
 const track = document.getElementById("image-track");
 
 if (track) {
-    const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
+    const handleOnDown = e => {
+        track.dataset.mouseDownAt = e.clientX;
+    };
 
     const handleOnUp = () => {
         track.dataset.mouseDownAt = "0";  
-        track.dataset.prevPercentage = track.dataset.percentage;
-    }
+        
+        // FIX: Only update prevPercentage if we actually dragged (percentage exists)
+        // This prevents the slider from breaking if you click without dragging.
+        if (track.dataset.percentage) {
+            track.dataset.prevPercentage = track.dataset.percentage;
+        }
+    };
 
     const handleOnMove = e => {
         if(track.dataset.mouseDownAt === "0") return;
@@ -91,8 +99,9 @@ if (track) {
 
         track.dataset.percentage = nextPercentage;
 
+        // FIX: Changed Y-axis from -50% to 0% to match your CSS and prevent jumping
         track.animate({
-            transform: `translate(${nextPercentage}%, -50%)`
+            transform: `translate(${nextPercentage}%, 0%)`
         }, { duration: 1200, fill: "forwards" });
 
         for(const image of track.getElementsByClassName("track-image")) {
@@ -100,15 +109,17 @@ if (track) {
                 objectPosition: `${100 + nextPercentage}% center`
             }, { duration: 1200, fill: "forwards" });
         }
-    }
+    };
 
-    /* -- Touch Support -- */
-    window.onmousedown = e => handleOnDown(e);
-    window.ontouchstart = e => handleOnDown(e.touches[0]);
-    window.onmouseup = e => handleOnUp(e);
-    window.ontouchend = e => handleOnUp(e.touches[0]);
-    window.onmousemove = e => handleOnMove(e);
-    window.ontouchmove = e => handleOnMove(e.touches[0]);
+    /* -- Touch Support (Using AddEventListener is safer) -- */
+    window.addEventListener('mousedown', e => handleOnDown(e));
+    window.addEventListener('touchstart', e => handleOnDown(e.touches[0]));
+    
+    window.addEventListener('mouseup', e => handleOnUp(e));
+    window.addEventListener('touchend', e => handleOnUp(e.touches[0]));
+    
+    window.addEventListener('mousemove', e => handleOnMove(e));
+    window.addEventListener('touchmove', e => handleOnMove(e.touches[0]));
 }
 
 // --- 3. ABOUT: FANNING BOOK LOGIC ---
