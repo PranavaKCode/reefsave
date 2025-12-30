@@ -8,8 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Background Particles -->
     <canvas id="particle-canvas"></canvas>
 
+    <!-- Navigation -->
     <nav>
         <div class="logo">ReefSave.org</div>
         <div class="nav-links">
@@ -18,22 +20,84 @@
             <a href="courses.html">Courses</a>
             <a href="events.html">Events</a>
             <a href="donate.html">Donate</a>
-            <a href="contact.html">Contact</a>
+            <a href="contact.html" class="btn btn-secondary" style="margin:0; padding: 8px 16px;">Join Us</a>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
+            <!-- Individual Hover Glitch Effect -->
             <div class="glitch-wrapper">
                 <h1 class="glitch-text">Saving Reefs.</h1>
-                <h1 class="glitch-text">Stopping Lionfish.</h1>
+                <h1 class="glitch-text sub-glitch">Stopping Lionfish.</h1>
             </div>
             <p>Researching, educating, and implementing self-funding strategies to protect the Western Atlantic & Caribbean reefs from invasive predation.</p>
-            <a href="about.html" class="btn">Our Strategy</a>
+            <div class="hero-btns">
+                <a href="about.html" class="btn">Our Strategy</a>
+                <a href="about.html#roadmap" class="btn btn-secondary">View Roadmap</a>
+            </div>
+        </div>
+        
+        <!-- Hero Video -->
+        <div class="hero-video-wrapper">
+             <video autoplay muted loop playsinline poster="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/24d713d3-39c9-4658-94c4-715e8bacc6b5/IMG_0686.JPG">
+                <source src="https://video.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/133975e1-30c4-4c1d-ba3a-20e48509785f/1920:1080" type="video/mp4">
+            </video>
         </div>
     </section>
 
-    <footer><p>ReefSave.org</p></footer>
+    <!-- Parallax Drag Slider (Updated Images) -->
+    <div class="track-container">
+        <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+            <!-- 1. Lionfish Close Up -->
+            <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/a586ca7c-36eb-42b9-92cf-648147ac48ae/IMG_3168.JPG" draggable="false" alt="Lionfish" />
+            
+            <!-- 2. The Trap -->
+            <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/d7944ab8-b824-41ef-9f25-ced64228c40c/noaa+-+lionfish+trap.jpg" draggable="false" alt="Trap" />
+            
+            <!-- 3. Diver -->
+            <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/22650f47-c477-4572-8562-7977a44f64e7/IMG_20190209_101004_137.jpg" draggable="false" alt="Diver" />
+            
+            <!-- 4. FAD Deployment -->
+            <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/1754585547409-Y2AIGI5V8K916ASGIJ67/IMG_2731.JPG?format=1500w" draggable="false" alt="FAD" />
+            
+            <!-- 5. Underwater Cage -->
+            <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/1754588396985-6PXUUQS187HPZBY5WMMT/20180822-09414104_LR-IMG_2830.jpg?format=1500w" draggable="false" alt="Cage" />
+            
+            <!-- 6. Surface Team -->
+            <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/80e02c96-a9ff-4ee5-a5e1-324091a02b5a/IMG_20190209_202852715_BURST001.jpg" draggable="false" alt="Surface Team" />
+            
+            <!-- 7. Retrieval -->
+            <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/1754588452752-KEO1JVN29EDQTQ0M84WS/IMG_2967.JPG?format=1500w" draggable="false" alt="Retrieval" />
+        </div>
+        <p style="text-align: center; margin-top: 10px; opacity: 0.7; font-size: 0.9rem;">&larr; Drag images to explore field operations &rarr;</p>
+    </div>
+
+    <!-- Core Strategy Cards -->
+    <section class="container" style="padding-top: 50px;">
+        <h2>The Core Strategy</h2>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+            <div class="card">
+                <h3 style="color:var(--neon-cyan)">Research</h3>
+                <p>Developing data-driven models to predict lionfish aggregation, moving beyond random trap placement to precise, effective harvesting.</p>
+            </div>
+            <div class="card">
+                <h3 style="color:var(--biolum-green)">Economics</h3>
+                <p>Creating a self-funding system. Whole Foods has committed to buying the catch, creating wealth for local fishers.</p>
+            </div>
+            <div class="card">
+                <h3 style="color:#ffffff">Scalability</h3>
+                <p>Starting in Bequia, expanding globally. Our Benefit Corporation franchise model ensures sustainable growth.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>ReefSave.org | 9020 SW 59 Street, Miami, FL 33173</p>
+        <p>Contact: Reefsave@Outlook.com</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
