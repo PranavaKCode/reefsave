@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReefSave | About</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Lexend:wght@600&family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
     <canvas id="particle-canvas"></canvas>
@@ -17,42 +17,51 @@
             <a href="courses.html">Courses</a>
             <a href="events.html">Events</a>
             <a href="donate.html">Donate</a>
-            <a href="contact.html">Join Us</a>
+            <a href="contact.html">Contact</a>
         </div>
     </nav>
 
-    <div class="container" style="display:flex; flex-wrap:wrap; align-items:center; justify-content: space-between;">
-        <div style="flex: 1; min-width: 300px;">
-            <h1 class="glitch-text">The Mission</h1>
-            <p style="margin-bottom: 20px;">The mission of this non-profit is to research, educate, train and implement strategies to protect the reefs of the Western Atlantic and Caribbean Sea from loss of marine life from the Invasive Lionfish.</p>
-            
-            <h2 style="color:var(--neon-cyan)">2025-2026 Agenda</h2>
-            <ul style="color:var(--text-slate)">
-                <li><strong>Phase 1 (Done):</strong> Functionality of the Lionfish Purse Trap.</li>
-                <li><strong>Phase 2 (Active):</strong> Location Prediction & FAD Aggregation Data.</li>
-                <li><strong>Phase 3 (Planned):</strong> B-Corp Franchise Model.</li>
-            </ul>
+    <div class="container book-section">
+        <div class="book-text">
+            <h1>Who We Are</h1>
+            <p><strong>Mission:</strong> To research, educate, train and implement strategies to protect the reefs of the Western Atlantic and Caribbean Sea from loss of marine life from the Invasive Lionfish.</p>
+            <br>
+            <p><strong>Strategy:</strong> Local people must receive economic benefit. We create self-funding systems where catching Lionfish creates wealth, allowing for political will and overcoming lack of resources.</p>
+            <br>
+            <p><em>Move your mouse across the book to open the Field Manual.</em></p>
         </div>
 
-        <!-- 3D BOOK IMPLEMENTATION -->
-        <div class="book-scene">
+        <!-- THE FANNING BOOK -->
+        <div class="book-container">
             <div class="book">
-                <div class="page book-cover">
-                    <h2>FIELD<br>MANUAL</h2>
-                    <p style="font-size:0.8rem; margin-top:10px;">[INTERACTIVE]</p>
+                <!-- Bottom Cover -->
+                <div class="page cover"></div>
+                <!-- Inner Pages (Reversed order for content logic) -->
+                <div class="page"><div class="page-content" style="transform: rotateY(180deg);"><h3>Phase 3</h3><p><strong>B-Corp Franchise</strong><br>Using prediction models to set up franchise systems for local fishers.</p></div></div>
+                <div class="page"><div class="page-content" style="transform: rotateY(180deg);"><h3>Phase 2</h3><p><strong>Location Prediction</strong><br>Testing FADs to predict aggregation. Random traps fail; precise location is key.</p></div></div>
+                <div class="page"><div class="page-content" style="transform: rotateY(180deg);"><h3>Phase 1</h3><p><strong>Trap Testing</strong><br>Completed. The Lionfish purse trap works perfectly with no by-catch.</p></div></div>
+                <div class="page"><div class="page-content" style="transform: rotateY(180deg);"><h3>The Problem</h3><p>Lionfish are invasive, venomous, and have no natural predators in the Atlantic. They decimate reef fish.</p></div></div>
+                <div class="page"><div class="page-content" style="transform: rotateY(180deg);"><h3>ReefSave</h3><p>Agendas &<br>Operational<br>Protocols</p></div></div>
+                
+                <!-- Filler pages for thickness -->
+                <div class="page"></div><div class="page"></div><div class="page"></div><div class="page"></div>
+                
+                <!-- Top Cover -->
+                <div class="page cover top-cover">
+                    <div>
+                        <h1 class="book-title">book.</h1>
+                        <div class="book-subtitle">[interactive manual]</div>
+                    </div>
                 </div>
-                <!-- Simple pages stack for thickness -->
-                <div class="page" style="transform: translateZ(-2px)"></div>
-                <div class="page" style="transform: translateZ(-4px)"></div>
-                <div class="page" style="transform: translateZ(-6px)"></div>
             </div>
         </div>
     </div>
 
-    <section class="container">
-        <h2>Why Traditional Fishing Fails</h2>
-        <p>Randomly deployed traps have a near-zero catch rate. Spearing is limited by SCUBA depth (130ft). Our strategy focuses on <strong>Location Prediction</strong> using Fish Aggregation Devices (FADs) to create predictable harvest zones.</p>
-    </section>
+    <div class="container">
+        <h2>2025 Project Outline</h2>
+        <p>The system developed should be useable in a third world country. It appears that the big issue is: <strong>Where to place traps?</strong></p>
+        <p>Since the attractant is the FAD, we run tests using FAD only. We capture data on "Jaw Zone", "Near Zone", and "Far Zone".</p>
+    </div>
 
     <footer><p>ReefSave.org</p></footer>
     <script src="script.js"></script>
