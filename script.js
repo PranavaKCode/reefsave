@@ -68,60 +68,17 @@ if (canvas) {
     animate();
 }
 
-// --- 2. HOME: DRAG SLIDER (WEB ANIMATIONS API) ---
-// --- 2. HOME: DRAG SLIDER (WEB ANIMATIONS API) ---
+// --- 2. HOME: INFINITE SCROLLER SETUP ---
 const track = document.getElementById("image-track");
 
 if (track) {
-    const handleOnDown = e => {
-        track.dataset.mouseDownAt = e.clientX;
-    };
-
-    const handleOnUp = () => {
-        track.dataset.mouseDownAt = "0";  
-        
-        // FIX: Only update prevPercentage if we actually dragged (percentage exists)
-        // This prevents the slider from breaking if you click without dragging.
-        if (track.dataset.percentage) {
-            track.dataset.prevPercentage = track.dataset.percentage;
-        }
-    };
-
-    const handleOnMove = e => {
-        if(track.dataset.mouseDownAt === "0") return;
-
-        const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
-              maxDelta = window.innerWidth / 2;
-
-        const percentage = (mouseDelta / maxDelta) * -100,
-              nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
-              nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
-
-        track.dataset.percentage = nextPercentage;
-
-        // FIX: Changed Y-axis from -50% to 0% to match your CSS and prevent jumping
-        track.animate({
-            transform: `translate(${nextPercentage}%, 0%)`
-        }, { duration: 1200, fill: "forwards" });
-
-        for(const image of track.getElementsByClassName("track-image")) {
-            image.animate({
-                objectPosition: `${100 + nextPercentage}% center`
-            }, { duration: 1200, fill: "forwards" });
-        }
-    };
-
-    /* -- Touch Support (Using AddEventListener is safer) -- */
-    window.addEventListener('mousedown', e => handleOnDown(e));
-    window.addEventListener('touchstart', e => handleOnDown(e.touches[0]));
+    // 1. Duplicate the content to create the seamless loop
+    // We clone the existing images and append them to the end
+    const content = track.innerHTML;
+    track.innerHTML = content + content; // Duplicate exactly once
     
-    window.addEventListener('mouseup', e => handleOnUp(e));
-    window.addEventListener('touchend', e => handleOnUp(e.touches[0]));
-    
-    window.addEventListener('mousemove', e => handleOnMove(e));
-    window.addEventListener('touchmove', e => handleOnMove(e.touches[0]));
+    // Note: No event listeners needed! CSS handles the movement.
 }
-
 // --- 3. ABOUT: FANNING BOOK LOGIC ---
 const book = document.querySelector('.book');
 if (book) {
