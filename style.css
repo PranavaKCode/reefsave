@@ -117,21 +117,15 @@ nav {
 
 /* --- 6. DRAG SLIDER (Parallax) --- */
 #image-track {
-    display: flex; gap: 4vmin; position: relative; left: 50%; transform: translate(0%, -0%); 
-    user-select: none; /* Prevent highlighting */
+    display: flex; 
+    gap: 4vmin; 
+    position: relative; 
+    left: 50%; 
+    /* Ensure this matches the JS animate property (0%) */
+    transform: translate(0%, 0%); 
+    user-select: none; 
     padding: 80px 0;
     overflow: visible;
-}
-.track-container {
-    height: 60vh; width: 100vw; overflow: hidden; position: relative;
-    cursor: grab;
-}
-.track-container:active { cursor: grabbing; }
-
-.track-image {
-    width: 40vmin; height: 56vmin; object-fit: cover; object-position: 100% center;
-    border-radius: 8px;
-    pointer-events: none; /* Important for drag */
 }
 
 /* --- 7. ABOUT - THE BOOK --- */
