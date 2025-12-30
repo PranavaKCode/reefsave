@@ -3,162 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReefSave | Protecting Reefs from Invasive Lionfish</title>
-    <meta name="description" content="ReefSave’s Mission is to use Research and Testing to Develop a Self-funding system to control the Invasive Lionfish.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
-    <!-- CSS Link -->
+    <title>ReefSave | Home</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <!-- Particle Background -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo glitch-hover" data-text="ReefSave.org">ReefSave.org</div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#mission">Mission</a></li>
-            <li><a href="#phases">Phases</a></li>
-            <li><a href="#gallery">Field Ops</a></li>
-            <li><a href="#contact" class="btn-primary">Get Involved</a></li>
-        </ul>
-        <div class="hamburger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
+    <nav>
+        <div class="logo">ReefSave.org</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About & Manual</a>
+            <a href="courses.html">Courses</a>
+            <a href="events.html">Events</a>
+            <a href="donate.html" style="color:var(--biolum-green)">Donate</a>
+            <a href="contact.html">Join Us</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="glitch-text" title="Saving Reefs">Saving Reefs.</h1>
-            <h1 class="glitch-text sub-glitch" title="Stopping Lionfish">Stopping Lionfish.</h1>
-            <p>Researching, educating, and implementing strategies to protect the Western Atlantic & Caribbean from invasive predation.</p>
-            <div class="hero-btns">
-                <a href="#mission" class="btn-primary">Our Strategy</a>
-                <a href="#phases" class="btn-secondary">View Roadmap</a>
-            </div>
-        </div>
-        <div class="hero-video-wrapper glowing-border">
-            <!-- Using the video from your original site source -->
-            <video autoplay muted loop playsinline poster="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/24d713d3-39c9-4658-94c4-715e8bacc6b5/IMG_0686.JPG">
-                <source src="https://video.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/133975e1-30c4-4c1d-ba3a-20e48509785f/1920:1080" type="video/mp4">
-            </video>
-        </div>
+    <section class="hero">
+        <h1 class="glitch-text">Saving Reefs.<br>Stopping Lionfish.</h1>
+        <p>Researching, educating, and implementing self-funding strategies to protect the Western Atlantic & Caribbean reefs from invasive predation.</p>
+        <a href="about.html" class="btn">Explore the Solution</a>
     </section>
 
-    <!-- Mission Grid -->
-    <section id="mission" class="mission">
-        <div class="section-header">
-            <h2>The Mission</h2>
-            <div class="line-break"></div>
+    <!-- Infinite Image Slider -->
+    <div class="slider-area">
+        <div class="slider-track">
+            <!-- Duplicate images for seamless loop -->
+            <div class="slide"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/a586ca7c-36eb-42b9-92cf-648147ac48ae/IMG_3168.JPG" alt="FAD"></div>
+            <div class="slide"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/d7944ab8-b824-41ef-9f25-ced64228c40c/noaa+-+lionfish+trap.jpg" alt="Trap"></div>
+            <div class="slide"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/22650f47-c477-4572-8562-7977a44f64e7/IMG_20190209_101004_137.jpg" alt="Diver"></div>
+            <div class="slide"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/80e02c96-a9ff-4ee5-a5e1-324091a02b5a/IMG_20190209_202852715_BURST001.jpg" alt="Boat"></div>
+            <!-- Repeat -->
+            <div class="slide"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/a586ca7c-36eb-42b9-92cf-648147ac48ae/IMG_3168.JPG" alt="FAD"></div>
+            <div class="slide"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/d7944ab8-b824-41ef-9f25-ced64228c40c/noaa+-+lionfish+trap.jpg" alt="Trap"></div>
+            <div class="slide"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/22650f47-c477-4572-8562-7977a44f64e7/IMG_20190209_101004_137.jpg" alt="Diver"></div>
         </div>
-        <div class="grid-container">
-            <div class="glass-card">
-                <h3><i class="fas fa-search"></i> Research</h3>
-                <p>Developing a self-funding system to control Invasive Lionfish. We use data-driven testing to predict aggregation locations.</p>
-            </div>
-            <div class="glass-card">
-                <h3><i class="fas fa-hand-holding-usd"></i> Economic Benefit</h3>
-                <p>Local communities must benefit. We develope markets (Whole Foods) to ensure the catch creates wealth for local fishers.</p>
-            </div>
-            <div class="glass-card">
-                <h3><i class="fas fa-globe-americas"></i> Global Impact</h3>
-                <p>Starting in the Caribbean (Bequia), our prediction models and trap designs are scalable to affected regions worldwide.</p>
-            </div>
-        </div>
-    </section>
+    </div>
 
-    <!-- 3D Book / Phases Section -->
-    <section id="phases" class="phases">
-        <div class="content-split">
-            <div class="text-side">
-                <h2>The Master Plan</h2>
-                <p>Our strategy is broken down into three distinct phases to ensure sustainability and scalability.</p>
-                <ul class="phase-list">
-                    <li><span class="highlight">Phase 1:</span> Trap Functionality Testing (Completed)</li>
-                    <li><span class="highlight">Phase 2:</span> Location Prediction (In Progress - Aug 2026)</li>
-                    <li><span class="highlight">Phase 3:</span> B-Corp Franchise Model (Planned)</li>
-                </ul>
-                <br>
-                <a href="/course" class="btn-primary">Take the Course</a>
+    <section class="container">
+        <h2>The Core Strategy</h2>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div class="card">
+                <h3>Research</h3>
+                <p>Developing data-driven models to predict lionfish aggregation, moving beyond random trap placement to precise, effective harvesting.</p>
             </div>
-            <div class="visual-side">
-                <!-- Interactive 3D Book -->
-                <div class="book-scene">
-                    <div class="book">
-                        <div class="face front">
-                            <div class="book-cover-content">
-                                <h3>FIELD<br>MANUAL</h3>
-                                <div class="icon-box">🦁🐟</div>
-                                <p>Hover to Open</p>
-                            </div>
-                        </div>
-                        <div class="face back">
-                            <h3>Phase 2: Data</h3>
-                            <p><strong>Goal:</strong> Location Prediction.</p>
-                            <p><strong>Next Ops:</strong> Bequia, Aug 2026.</p>
-                            <p>Volunteers Needed for FAD Aggregation Testing.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="card">
+                <h3>Economics</h3>
+                <p>Creating a self-funding system. Whole Foods has committed to buying the catch, creating wealth for local fishers.</p>
+            </div>
+            <div class="card">
+                <h3>Scalability</h3>
+                <p>Starting in Bequia, expanding globally. Our Benefit Corporation franchise model ensures sustainable growth.</p>
             </div>
         </div>
     </section>
 
-    <!-- Infinite Slider Gallery -->
-    <section id="gallery" class="gallery">
-        <div class="section-header center">
-            <h2>Field Operations</h2>
-        </div>
-        <div class="slider-area">
-            <div class="wrapper">
-                <div class="track">
-                    <!-- Images extracted from your source -->
-                    <div class="slide-image image-echo"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/a586ca7c-36eb-42b9-92cf-648147ac48ae/IMG_3168.JPG" alt="Lionfish"></div>
-                    <div class="slide-image image-echo"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/d7944ab8-b824-41ef-9f25-ced64228c40c/noaa+-+lionfish+trap.jpg" alt="Trap"></div>
-                    <div class="slide-image image-echo"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/22650f47-c477-4572-8562-7977a44f64e7/IMG_20190209_101004_137.jpg" alt="Diver"></div>
-                    <div class="slide-image image-echo"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/80e02c96-a9ff-4ee5-a5e1-324091a02b5a/IMG_20190209_202852715_BURST001.jpg" alt="Water"></div>
-                    <!-- Duplicate for loop -->
-                    <div class="slide-image image-echo"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/a586ca7c-36eb-42b9-92cf-648147ac48ae/IMG_3168.JPG" alt="Lionfish"></div>
-                    <div class="slide-image image-echo"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/d7944ab8-b824-41ef-9f25-ced64228c40c/noaa+-+lionfish+trap.jpg" alt="Trap"></div>
-                    <div class="slide-image image-echo"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/22650f47-c477-4572-8562-7977a44f64e7/IMG_20190209_101004_137.jpg" alt="Diver"></div>
-                    <div class="slide-image image-echo"><img src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/80e02c96-a9ff-4ee5-a5e1-324091a02b5a/IMG_20190209_202852715_BURST001.jpg" alt="Water"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-col">
-                <h3>ReefSave.org</h3>
-                <p>9020 SW 59 Street<br>Miami, Fl 33173</p>
-                <a href="mailto:Reefsave@Outlook.com" class="neon-link">Reefsave@Outlook.com</a>
-            </div>
-            <div class="footer-col">
-                <h3>Volunteers Needed</h3>
-                <p>Next Deployment: Bequia, August 17-20, 2026.</p>
-                <a href="#contact" class="btn-secondary small">Apply Now</a>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2025 ReefSave. All Rights Reserved.
-        </div>
+    <footer>
+        <p>ReefSave.org | 9020 SW 59 Street, Miami, FL 33173</p>
+        <p>Contact: Reefsave@Outlook.com</p>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
