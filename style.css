@@ -115,17 +115,60 @@ nav {
 }
 .hero-video-wrapper video { width: 100%; height: auto; display: block; }
 
-/* --- 6. DRAG SLIDER (Parallax) --- */
+/* --- 6. INFINITE PARALLAX SLIDER --- */
+.track-container {
+    height: 60vh; 
+    width: 100vw; 
+    overflow: hidden; 
+    position: relative;
+    padding: 40px 0; /* Vertical breathing room */
+}
+
 #image-track {
-    display: flex; 
-    gap: 4vmin; 
-    position: relative; 
-    left: 50%; 
-    /* Ensure this matches the JS animate property (0%) */
-    transform: translate(0%, 0%); 
-    user-select: none; 
-    padding: 80px 0;
-    overflow: visible;
+    display: flex;
+    gap: 4vmin;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0%, -50%); /* Vertically centered */
+    width: max-content; /* Ensure it holds all images */
+    
+    /* The Track Animation: Moves left continuously */
+    animation: scroll-track 40s linear infinite;
+    
+    /* Pause on hover if you want users to look at details */
+    /* animation-play-state: paused; (Uncomment this line to enable pause-on-hover) */
+}
+
+/* Move the track exactly half its width (because we will duplicate the images in JS) */
+@keyframes scroll-track {
+    0% { transform: translate(0%, -50%); }
+    100% { transform: translate(-50%, -50%); }
+}
+
+.track-image {
+    width: 40vmin;
+    height: 56vmin;
+    object-fit: cover;
+    border-radius: 8px;
+    user-select: none;
+    
+    /* The Parallax Animation: Pans the image inside the frame */
+    animation: parallax-effect 40s linear infinite;
+}
+
+/* Pan the image position opposite to the track movement */
+@keyframes parallax-effect {
+    0% { object-position: 0% 50%; }
+    100% { object-position: 100% 50%; }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .track-image {
+        width: 60vmin;
+        height: 80vmin;
+    }
 }
 
 /* --- 7. ABOUT - THE BOOK --- */
