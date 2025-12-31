@@ -8,7 +8,7 @@
     --text-slate: #8892b0;
     --text-light: #ccd6f6;
     --white: #e6f1ff;
-    --glass: rgba(17, 34, 64, 0.7);
+    --glass: rgba(17, 34, 64, 0.95); /* Increased opacity for mobile menu */
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Space Mono', monospace;
 }
@@ -20,8 +20,8 @@ body {
     color: var(--text-slate);
     font-family: var(--font-body);
     line-height: 1.6;
-    overflow-x: hidden; /* Critical for slider */
-    width: 100vw;
+    overflow-x: hidden;
+    width: 100%; /* Changed from 100vw to prevent scrollbar width issues */
 }
 
 h1, h2, h3, h4 {
@@ -51,9 +51,20 @@ nav {
     border-bottom: 1px solid rgba(100, 255, 218, 0.1);
 }
 
-.logo { font-size: 1.5rem; font-weight: bold; color: var(--neon-cyan); }
-.nav-links { display: flex; gap: 30px; }
+.logo { font-size: 1.5rem; font-weight: bold; color: var(--neon-cyan); z-index: 1001; }
+.nav-links { display: flex; gap: 30px; align-items: center; }
 .nav-links a:hover, .nav-links a.active { color: var(--neon-cyan); }
+
+/* Hamburger Menu (Hidden on Desktop) */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+.bar {
+    display: block; width: 25px; height: 3px; margin: 5px auto;
+    background-color: var(--neon-cyan); transition: all 0.3s ease-in-out;
+}
 
 /* --- 4. GLOBAL UI --- */
 .container { padding: 80px 10%; max-width: 1400px; margin: 0 auto; }
@@ -118,10 +129,10 @@ nav {
 /* --- 6. INFINITE PARALLAX SLIDER --- */
 .track-container {
     height: 60vh; 
-    width: 100vw; 
+    width: 100%; 
     overflow: hidden; 
     position: relative;
-    padding: 40px 0; /* Vertical breathing room */
+    padding: 40px 0;
 }
 
 #image-track {
@@ -130,17 +141,11 @@ nav {
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translate(0%, -50%); /* Vertically centered */
-    width: max-content; /* Ensure it holds all images */
-    
-    /* The Track Animation: Moves left continuously */
+    transform: translate(0%, -50%); 
+    width: max-content; 
     animation: scroll-track 40s linear infinite;
-    
-    /* Pause on hover if you want users to look at details */
-    /* animation-play-state: paused; (Uncomment this line to enable pause-on-hover) */
 }
 
-/* Move the track exactly half its width (because we will duplicate the images in JS) */
 @keyframes scroll-track {
     0% { transform: translate(0%, -50%); }
     100% { transform: translate(-50%, -50%); }
@@ -152,29 +157,19 @@ nav {
     object-fit: cover;
     border-radius: 8px;
     user-select: none;
-    
-    /* The Parallax Animation: Pans the image inside the frame */
     animation: parallax-effect 40s linear infinite;
 }
 
-/* Pan the image position opposite to the track movement */
 @keyframes parallax-effect {
     0% { object-position: 0% 50%; }
     100% { object-position: 100% 50%; }
-}
-
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-    .track-image {
-        width: 60vmin;
-        height: 80vmin;
-    }
 }
 
 /* --- 7. ABOUT - THE BOOK --- */
 .scene {
     width: 100%; height: 600px; display: flex; justify-content: center; align-items: center;
     perspective: 1500px;
+    overflow: hidden; /* Prevents scrollbars during rotation */
 }
 .book-container { transform: rotateZ(-2deg); transform-style: preserve-3d; }
 .book { position: relative; width: 300px; height: 440px; transform-style: preserve-3d; }
@@ -185,20 +180,18 @@ nav {
     border-radius: 3px 15px 15px 3px; transform-origin: left center;
     padding: 20px; overflow: hidden;
     display: flex; flex-direction: column; justify-content: center; text-align: center;
-    transition: transform 0.1s linear; /* Smooth mouse tracking */
+    /* REMOVED transition here to allow smooth JS animation */
 }
-/* This prevents mirrored text issue by hiding the "back" of the page */
 .page-content {
     opacity: 0; transition: opacity 0.2s; pointer-events: none;
-    transform: rotateY(180deg); /* Flip content so it looks right when page is open */
+    transform: rotateY(180deg); 
 }
-/* Logic: When page rotates past 90deg (opens), show content */
 .page.open .page-content { opacity: 1; pointer-events: auto; }
 
 .cover { background-color: #0b1523; border-width: 2px; border-color: #6eb7ff; z-index: 100; }
 .top-cover { 
     display: flex; flex-direction: column; justify-content: center; align-items: center; 
-    backface-visibility: hidden; /* Hide cover when opened */
+    backface-visibility: hidden; 
 }
 .book-title { font-family: 'Lexend', sans-serif; font-size: 3.5rem; color: #f0f0f0; margin: 0; }
 .book-subtitle { font-family: 'Space Mono', monospace; font-size: 1rem; color: #8899ac; margin-top: 10px; }
@@ -217,7 +210,6 @@ nav {
     padding: 30px; background: rgba(17, 34, 64, 0.8);
     border-bottom: 1px solid rgba(100, 255, 218, 0.1);
 }
-/* Accordion Styles */
 .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
 .accordion-trigger {
     width: 100%; text-align: left; padding: 20px 30px;
@@ -231,7 +223,7 @@ nav {
     max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
     background: rgba(0,0,0,0.2);
 }
-.accordion-inner { padding: 30px; /* Breathing room */ color: var(--text-slate); }
+.accordion-inner { padding: 30px; color: var(--text-slate); }
 .accordion-inner img { max-width: 100%; border-radius: 4px; margin-bottom: 20px; border: 1px solid var(--text-slate);}
 
 /* --- 9. EVENTS --- */
@@ -257,8 +249,7 @@ nav {
     min-height: 60vh; display: flex; align-items: center; justify-content: center;
 }
 .donate-card {
-    background: #e6f1ff; /* Clean white/gray */
-    color: #0a192f; /* Dark text */
+    background: #e6f1ff; color: #0a192f;
     padding: 50px; border-radius: 4px;
     max-width: 600px; width: 100%;
     text-align: center;
@@ -278,12 +269,8 @@ nav {
 }
 
 /* --- 11. CONTACT --- */
-.contact-container {
-    display: flex; gap: 50px; flex-wrap: wrap;
-}
-.contact-form {
-    flex: 2; background: var(--light-navy); padding: 40px; border-radius: 8px;
-}
+.contact-container { display: flex; gap: 50px; flex-wrap: wrap; }
+.contact-form { flex: 2; background: var(--light-navy); padding: 40px; border-radius: 8px; }
 .contact-info { flex: 1; }
 input, textarea {
     width: 100%; padding: 15px; margin-bottom: 20px;
@@ -298,13 +285,35 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;
 }
 
-/* Mobile */
+/* --- 13. MOBILE RESPONSIVE --- */
 @media (max-width: 768px) {
-    .nav-links { display: none; } /* Add JS toggle for real styling */
-    .hero { flex-direction: column; padding-top: 120px; text-align: center; }
+    .container { padding: 60px 5%; }
+    
+    /* Mobile Nav */
+    .hamburger { display: block; }
+    .nav-links {
+        position: fixed; left: -100%; top: 70px; gap: 0;
+        flex-direction: column; background-color: var(--light-navy);
+        width: 100%; text-align: center; transition: 0.3s;
+        border-bottom: 1px solid rgba(100,255,218,0.1);
+        padding-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .nav-links.active { left: 0; }
+    .nav-links a { display: block; padding: 20px; width: 100%; }
+    .btn-secondary { margin: 0 auto; width: 80%; display: block; }
+
+    /* Hero */
+    .hero { flex-direction: column; padding-top: 40px; text-align: center; }
     .hero p { margin: 20px auto; }
+    .hero-video-wrapper { margin-top: 30px; }
+    
+    /* Components */
     .event-card { flex-direction: column; }
     .event-img { width: 100%; height: 200px; }
     .track-image { width: 60vmin; height: 84vmin; }
     .book { width: 250px; height: 360px; }
+    .contact-container { flex-direction: column; }
+    .contact-form { width: 100%; }
+    
+    .glitch-text { font-size: 2.5rem; }
 }
