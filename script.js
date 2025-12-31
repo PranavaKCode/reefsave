@@ -76,9 +76,8 @@ if (track) {
     // We clone the existing images and append them to the end
     const content = track.innerHTML;
     track.innerHTML = content + content; // Duplicate exactly once
-    
-    // Note: No event listeners needed! CSS handles the movement.
 }
+
 // --- 3. ABOUT: FANNING BOOK LOGIC ---
 const book = document.querySelector('.book');
 if (book) {
