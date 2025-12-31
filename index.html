@@ -12,6 +12,12 @@
 
     <nav>
         <div class="logo">ReefSave.org</div>
+        <!-- Hamburger Icon -->
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
         <div class="nav-links">
             <a href="index.html" class="active">Home</a>
             <a href="about.html">About</a>
@@ -29,7 +35,8 @@
             <p>Researching, educating, and implementing self-funding strategies to protect the Western Atlantic & Caribbean reefs from invasive predation.</p>
             <div class="hero-btns">
                 <a href="about.html" class="btn">Our Strategy</a>
-                <a href="phases.html" class="btn btn-secondary">View Roadmap</a>
+                <!-- Fixed link: phases.html -> about.html -->
+                <a href="about.html" class="btn btn-secondary">View Roadmap</a>
             </div>
         </div>
         <div class="hero-video-wrapper">
@@ -39,8 +46,9 @@
         </div>
     </section>
 
-    <!-- DRAG SLIDER -->
+    <!-- AUTO SLIDER -->
     <div class="track-container">
+        <!-- data attributes kept for legacy, but animation is handled via CSS now -->
         <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
             <img class="track-image" src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=1752&auto=format&fit=crop" draggable="false" />
             <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/a586ca7c-36eb-42b9-92cf-648147ac48ae/IMG_3168.JPG" draggable="false" />
@@ -49,7 +57,8 @@
             <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/80e02c96-a9ff-4ee5-a5e1-324091a02b5a/IMG_20190209_202852715_BURST001.jpg" draggable="false" />
             <img class="track-image" src="https://images.unsplash.com/photo-1544551763-46a8723ba3f9?q=80&w=1752&auto=format&fit=crop" draggable="false" />
         </div>
-        <p style="text-align: center; margin-top: 10px; opacity: 0.7;">&larr; Drag to Explore &rarr;</p>
+        <!-- Updated text to reflect auto-scroll behavior -->
+        <p style="text-align: center; margin-top: 10px; opacity: 0.7;">&larr; Field Operations Gallery &rarr;</p>
     </div>
 
     <footer><p>ReefSave.org</p></footer>
