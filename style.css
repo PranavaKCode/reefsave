@@ -8,7 +8,7 @@
     --text-slate: #8892b0;
     --text-light: #ccd6f6;
     --white: #e6f1ff;
-    --glass: rgba(17, 34, 64, 0.95); /* Increased opacity for mobile menu */
+    --glass: rgba(17, 34, 64, 0.95);
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Space Mono', monospace;
 }
@@ -21,7 +21,7 @@ body {
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;
-    width: 100%; /* Changed from 100vw to prevent scrollbar width issues */
+    width: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -29,6 +29,9 @@ h1, h2, h3, h4 {
     color: var(--text-light);
     font-weight: 700;
 }
+
+h4 { font-size: 1.2rem; color: var(--neon-cyan); margin-top: 15px; margin-bottom: 5px; }
+strong { color: var(--white); }
 
 a { text-decoration: none; color: inherit; transition: 0.3s; }
 ul { list-style: none; }
@@ -55,7 +58,6 @@ nav {
 .nav-links { display: flex; gap: 30px; align-items: center; }
 .nav-links a:hover, .nav-links a.active { color: var(--neon-cyan); }
 
-/* Hamburger Menu (Hidden on Desktop) */
 .hamburger {
     display: none;
     cursor: pointer;
@@ -88,7 +90,6 @@ nav {
 }
 .btn-secondary:hover { color: var(--white); border-color: var(--white); background: transparent; }
 
-/* Glitch Text Effect */
 .glitch-text { 
     position: relative; color: var(--white); font-size: 3.5rem; line-height: 1.1;
     display: block; transition: color 0.3s;
@@ -126,9 +127,9 @@ nav {
 }
 .hero-video-wrapper video { width: 100%; height: auto; display: block; }
 
-/* --- 6. INFINITE PARALLAX SLIDER --- */
+/* --- 6. INFINITE SLIDER (UPDATED) --- */
 .track-container {
-    height: 60vh; 
+    height: 70vh; /* Increased height for header */
     width: 100%; 
     overflow: hidden; 
     position: relative;
@@ -140,7 +141,7 @@ nav {
     gap: 4vmin;
     position: absolute;
     left: 0;
-    top: 50%;
+    top: 55%; /* Push down slightly to account for header */
     transform: translate(0%, -50%); 
     width: max-content; 
     animation: scroll-track 40s linear infinite;
@@ -157,19 +158,15 @@ nav {
     object-fit: cover;
     border-radius: 8px;
     user-select: none;
-    animation: parallax-effect 40s linear infinite;
+    /* REMOVED internal parallax animation for "normal slide" look */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-@keyframes parallax-effect {
-    0% { object-position: 0% 50%; }
-    100% { object-position: 100% 50%; }
-}
-
-/* --- 7. ABOUT - THE BOOK --- */
+/* --- 7. ABOUT - THE BOOK (FIXED) --- */
 .scene {
     width: 100%; height: 600px; display: flex; justify-content: center; align-items: center;
     perspective: 1500px;
-    overflow: hidden; /* Prevents scrollbars during rotation */
+    overflow: hidden;
 }
 .book-container { transform: rotateZ(-2deg); transform-style: preserve-3d; }
 .book { position: relative; width: 300px; height: 440px; transform-style: preserve-3d; }
@@ -178,37 +175,44 @@ nav {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background-color: #0f1c30; border: 1px solid #4da6ff;
     border-radius: 3px 15px 15px 3px; transform-origin: left center;
-    padding: 20px; overflow: hidden;
+    padding: 20px; 
     display: flex; flex-direction: column; justify-content: center; text-align: center;
-    /* REMOVED transition here to allow smooth JS animation */
+    backface-visibility: hidden; /* Critical for 3D effect */
 }
+
+/* Content on the "back" of the page */
 .page-content {
-    opacity: 0; transition: opacity 0.2s; pointer-events: none;
-    transform: rotateY(180deg); 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 20px;
+    background-color: #0f1c30;
+    transform: rotateY(180deg); /* Flip content so it reads correctly when page opens */
+    backface-visibility: hidden;
+    opacity: 0; transition: opacity 0.1s; pointer-events: none;
 }
+
+/* When the class 'open' is added by JS, show the content */
 .page.open .page-content { opacity: 1; pointer-events: auto; }
 
 .cover { background-color: #0b1523; border-width: 2px; border-color: #6eb7ff; z-index: 100; }
 .top-cover { 
     display: flex; flex-direction: column; justify-content: center; align-items: center; 
-    backface-visibility: hidden; 
 }
 .book-title { font-family: 'Lexend', sans-serif; font-size: 3.5rem; color: #f0f0f0; margin: 0; }
 .book-subtitle { font-family: 'Space Mono', monospace; font-size: 1rem; color: #8899ac; margin-top: 10px; }
 
 /* Text Sections */
-.text-block { margin-bottom: 60px; max-width: 800px; }
-.text-block h2 { color: var(--neon-cyan); margin-bottom: 20px; }
-.text-block h3 { color: var(--white); margin-top: 30px; margin-bottom: 10px; }
+.text-block { margin-bottom: 60px; max-width: 900px; border-bottom: 1px solid rgba(100, 255, 218, 0.1); padding-bottom: 40px; }
+.text-block:last-child { border: none; }
+.text-block h2 { color: var(--neon-cyan); margin-bottom: 20px; font-size: 2rem; }
+.text-block h3 { color: var(--white); margin-top: 30px; margin-bottom: 10px; font-size: 1.3rem; }
+.text-block ul { list-style: disc; margin-left: 20px; color: var(--text-slate); margin-bottom: 20px; }
+.text-block li { margin-bottom: 10px; }
 
 /* --- 8. COURSES --- */
 .course-card {
     background: var(--light-navy); border: 1px solid rgba(100, 255, 218, 0.1);
     border-radius: 8px; margin-bottom: 40px; overflow: hidden;
-}
-.course-header {
-    padding: 30px; background: rgba(17, 34, 64, 0.8);
-    border-bottom: 1px solid rgba(100, 255, 218, 0.1);
 }
 .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
 .accordion-trigger {
@@ -289,7 +293,6 @@ footer {
 @media (max-width: 768px) {
     .container { padding: 60px 5%; }
     
-    /* Mobile Nav */
     .hamburger { display: block; }
     .nav-links {
         position: fixed; left: -100%; top: 70px; gap: 0;
@@ -302,12 +305,10 @@ footer {
     .nav-links a { display: block; padding: 20px; width: 100%; }
     .btn-secondary { margin: 0 auto; width: 80%; display: block; }
 
-    /* Hero */
     .hero { flex-direction: column; padding-top: 40px; text-align: center; }
     .hero p { margin: 20px auto; }
     .hero-video-wrapper { margin-top: 30px; }
     
-    /* Components */
     .event-card { flex-direction: column; }
     .event-img { width: 100%; height: 200px; }
     .track-image { width: 60vmin; height: 84vmin; }
