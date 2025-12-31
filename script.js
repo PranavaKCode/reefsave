@@ -110,3 +110,24 @@ if(hamburger && navMenu) {
         navMenu.classList.remove("active");
     }));
 }
+
+// --- 5. HLS VIDEO PLAYER (FOR HERO SECTION) ---
+const video = document.getElementById('hero-video');
+const videoSrc = 'https://video.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/133975e1-30c4-4c1d-ba3a-20e48509785f/playlist.m3u8';
+
+if (video) {
+    if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        // For Native HLS support (Safari)
+        video.src = videoSrc;
+        video.addEventListener('loadedmetadata', function() {
+            video.play();
+        });
+    }
+}
