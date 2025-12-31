@@ -75,61 +75,7 @@ if (track) {
     track.innerHTML = content + content; // Duplicate exactly once for loop
 }
 
-// --- 3. ABOUT: FANNING BOOK LOGIC (FIXED Z-INDEX) ---
-const book = document.querySelector('.book');
-if (book) {
-    const pages = document.querySelectorAll('.page');
-    const totalPages = pages.length;
-    const maxRotation = -170; 
-
-    function updateBook(clientX) {
-        const rect = book.getBoundingClientRect();
-        const spineX = rect.left;
-        const width = rect.width;
-        
-        // Trigger logic: Mouse position relative to book
-        const startX = spineX + (width * 1.5); 
-        const endX = spineX - (width * 0.5);   
-        
-        let progress = (startX - clientX) / (startX - endX);
-        if (progress < 0) progress = 0;
-        if (progress > 1) progress = 1;
-        
-        pages.forEach((page, index) => {
-            const pageFactor = index / (totalPages - 1);
-            const currentRotation = progress * maxRotation * pageFactor;
-            
-            page.style.transform = `rotateY(${currentRotation}deg)`;
-            page.style.translate = `0 0 ${index}px`; 
-
-            // DYNAMIC Z-INDEX: 
-            // When pages are closed (rot > -90), top page (index 0 or last) is highest.
-            // When pages are open (rot < -90), the "opened" stack needs new order.
-            // Simplified: If open, reverse z-index.
-            if (currentRotation < -90) {
-                 page.style.zIndex = totalPages - index;
-                 page.classList.add('open');
-            } else {
-                 page.style.zIndex = index;
-                 page.classList.remove('open');
-            }
-        });
-    }
-
-    window.addEventListener('mousemove', (e) => {
-        requestAnimationFrame(() => updateBook(e.clientX));
-    });
-
-    // Mobile touch support
-    window.addEventListener('touchmove', (e) => {
-         requestAnimationFrame(() => updateBook(e.touches[0].clientX));
-    });
-    
-    // Initial closed state
-    updateBook(window.innerWidth * 2); 
-}
-
-// --- 4. COURSES: ACCORDION LOGIC ---
+// --- 3. COURSES: ACCORDION LOGIC ---
 const accTriggers = document.querySelectorAll('.accordion-trigger');
 accTriggers.forEach(trigger => {
     trigger.addEventListener('click', () => {
@@ -149,7 +95,7 @@ accTriggers.forEach(trigger => {
     });
 });
 
-// --- 5. MOBILE MENU LOGIC ---
+// --- 4. MOBILE MENU LOGIC ---
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-links");
 
