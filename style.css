@@ -107,19 +107,26 @@ nav {
     80% { transform: translate(2px, -2px); } 100% { transform: translate(0); }
 }
 
-/* --- 5. HOME HERO --- */
+/* --- 5. HOME HERO (UPDATED) --- */
 .hero { 
     min-height: 90vh; display: flex; align-items: center; justify-content: space-between; 
     padding: 0 10%; gap: 50px;
 }
-.hero-content { flex: 1; z-index: 2; }
+.hero-content { 
+    flex: 0.8; /* Give text slightly less priority space */
+    z-index: 2; 
+}
 .hero p { max-width: 500px; margin-top: 20px; font-size: 1.1rem; }
 
 .hero-video-wrapper {
-    flex: 1; position: relative; max-width: 600px;
+    flex: 1.2; /* Give video more priority space */
+    position: relative; 
+    max-width: 850px; /* INCREASED from 600px */
     border-radius: 10px; overflow: hidden;
     box-shadow: 0 0 0 1px rgba(100, 255, 218, 0.3);
     transition: transform 0.3s;
+    /* Aspect ratio hack for stability, though explicit width works too */
+    aspect-ratio: 16/9; 
 }
 .hero-video-wrapper:hover {
     box-shadow: 0 0 30px rgba(100, 255, 218, 0.2);
