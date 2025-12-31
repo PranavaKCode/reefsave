@@ -6,7 +6,7 @@
     <title>ReefSave | Home</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
-    <!-- ADDED: HLS.js Library to play .m3u8 videos on all browsers -->
+    <!-- HLS.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
@@ -42,8 +42,8 @@
         
         <!-- HERO VIDEO CONTAINER -->
         <div class="hero-video-wrapper">
-             <video id="hero-video" autoplay muted loop playsinline poster="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/24d713d3-39c9-4658-94c4-715e8bacc6b5/IMG_0686.JPG" style="width: 100%; height: 100%; object-fit: cover;">
-                <!-- HLS Source for Safari/iOS -->
+             <!-- Removed 'poster' attribute entirely so no static image loads -->
+             <video id="hero-video" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
                 <source src="https://video.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/133975e1-30c4-4c1d-ba3a-20e48509785f/playlist.m3u8" type="application/x-mpegURL">
             </video>
         </div>
@@ -54,7 +54,6 @@
         <h3 style="text-align: center; margin-bottom: 0px; color: var(--text-light);">Field Operations Gallery</h3>
         
         <div id="image-track">
-            <!-- ORIGINAL IMAGES RESTORED -->
             <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/a586ca7c-36eb-42b9-92cf-648147ac48ae/IMG_3168.JPG" draggable="false" />
             <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/d7944ab8-b824-41ef-9f25-ced64228c40c/noaa+-+lionfish+trap.jpg" draggable="false" />
             <img class="track-image" src="https://images.squarespace-cdn.com/content/v1/688d71a41f9bb734638622da/22650f47-c477-4572-8562-7977a44f64e7/IMG_20190209_101004_137.jpg" draggable="false" />
