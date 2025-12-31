@@ -70,21 +70,17 @@ if (canvas) {
 
 // --- 2. HOME: INFINITE SCROLLER SETUP ---
 const track = document.getElementById("image-track");
-
 if (track) {
-    // 1. Duplicate the content to create the seamless loop
-    // We clone the existing images and append them to the end
     const content = track.innerHTML;
-    track.innerHTML = content + content; // Duplicate exactly once
-    
-    // Note: No event listeners needed! CSS handles the movement.
+    track.innerHTML = content + content; // Duplicate exactly once for loop
 }
+
 // --- 3. ABOUT: FANNING BOOK LOGIC ---
 const book = document.querySelector('.book');
 if (book) {
     const pages = document.querySelectorAll('.page');
     const totalPages = pages.length;
-    const maxRotation = -170; // Degrees
+    const maxRotation = -170; 
 
     function updateBook(clientX) {
         const rect = book.getBoundingClientRect();
@@ -100,14 +96,13 @@ if (book) {
         if (progress > 1) progress = 1;
         
         pages.forEach((page, index) => {
-            // Factor: index 0 (bottom) moves least, top moves most
             const pageFactor = index / (totalPages - 1);
             const currentRotation = progress * maxRotation * pageFactor;
             
             page.style.transform = `rotateY(${currentRotation}deg)`;
             page.style.translate = `0 0 ${index}px`; 
 
-            // Text Visibility Logic (Un-mirroring)
+            // Text Visibility Logic
             if (currentRotation < -90) {
                 page.classList.add('open');
             } else {
@@ -120,7 +115,7 @@ if (book) {
         requestAnimationFrame(() => updateBook(e.clientX));
     });
 
-    // Mobile touch support for book
+    // Mobile touch support
     window.addEventListener('touchmove', (e) => {
          requestAnimationFrame(() => updateBook(e.touches[0].clientX));
     });
@@ -136,11 +131,12 @@ accTriggers.forEach(trigger => {
         const content = trigger.nextElementSibling;
         const icon = trigger.querySelector('span');
         
+        // If clicking an already open item, just close it
         if (content.style.maxHeight) {
             content.style.maxHeight = null;
             icon.textContent = '+';
         } else {
-            // Close others (optional, keeps UI clean)
+            // Close all others
             document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
             document.querySelectorAll('.accordion-trigger span').forEach(s => s.textContent = '+');
             
@@ -150,3 +146,20 @@ accTriggers.forEach(trigger => {
         }
     });
 });
+
+// --- 5. MOBILE MENU LOGIC ---
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-links");
+
+if(hamburger && navMenu) {
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll(".nav-links a").forEach(n => n.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+    }));
+}
