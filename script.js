@@ -75,7 +75,7 @@ if (track) {
     track.innerHTML = content + content; // Duplicate exactly once for loop
 }
 
-// --- 3. ABOUT: FANNING BOOK LOGIC ---
+// --- 3. ABOUT: FANNING BOOK LOGIC (FIXED Z-INDEX) ---
 const book = document.querySelector('.book');
 if (book) {
     const pages = document.querySelectorAll('.page');
@@ -87,7 +87,7 @@ if (book) {
         const spineX = rect.left;
         const width = rect.width;
         
-        // Trigger logic
+        // Trigger logic: Mouse position relative to book
         const startX = spineX + (width * 1.5); 
         const endX = spineX - (width * 0.5);   
         
@@ -102,11 +102,16 @@ if (book) {
             page.style.transform = `rotateY(${currentRotation}deg)`;
             page.style.translate = `0 0 ${index}px`; 
 
-            // Text Visibility Logic
+            // DYNAMIC Z-INDEX: 
+            // When pages are closed (rot > -90), top page (index 0 or last) is highest.
+            // When pages are open (rot < -90), the "opened" stack needs new order.
+            // Simplified: If open, reverse z-index.
             if (currentRotation < -90) {
-                page.classList.add('open');
+                 page.style.zIndex = totalPages - index;
+                 page.classList.add('open');
             } else {
-                page.classList.remove('open');
+                 page.style.zIndex = index;
+                 page.classList.remove('open');
             }
         });
     }
@@ -131,16 +136,13 @@ accTriggers.forEach(trigger => {
         const content = trigger.nextElementSibling;
         const icon = trigger.querySelector('span');
         
-        // If clicking an already open item, just close it
         if (content.style.maxHeight) {
             content.style.maxHeight = null;
             icon.textContent = '+';
         } else {
-            // Close all others
             document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
             document.querySelectorAll('.accordion-trigger span').forEach(s => s.textContent = '+');
             
-            // Open clicked
             content.style.maxHeight = content.scrollHeight + "px";
             icon.textContent = '-';
         }
@@ -157,7 +159,6 @@ if(hamburger && navMenu) {
         navMenu.classList.toggle("active");
     });
 
-    // Close menu when clicking a link
     document.querySelectorAll(".nav-links a").forEach(n => n.addEventListener("click", () => {
         hamburger.classList.remove("active");
         navMenu.classList.remove("active");
